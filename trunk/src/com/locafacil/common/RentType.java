@@ -1,6 +1,6 @@
 package com.locafacil.common;
 
-public class RentValue {
+public class RentType {
 	/*
 	 * Essa classe tem como objetivo criar os pacotes de alugueis
 	 * onde sera possivel determinar as opcoes, incluindo quantidade de dias ou kilometros de franquia 
@@ -17,7 +17,7 @@ public class RentValue {
 	public final static int PARTIAL_SECURE = 2;
 	public final static int FULL_SECURE = 3;
 	
-	public RentValue() {
+	public RentType() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

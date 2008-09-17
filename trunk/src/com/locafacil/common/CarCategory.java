@@ -3,7 +3,7 @@ package com.locafacil.common;
 public class CarCategory {
 	private int categoryCode;
 	private int categoryName;
-	private RentValue rentValue;
+	private RentType rentValue;
 	/**
 	 * @return the categoryCode
 	 */
@@ -31,13 +31,13 @@ public class CarCategory {
 	/**
 	 * @return the rentValue
 	 */
-	public RentValue getRentValue() {
+	public RentType getRentValue() {
 		return rentValue;
 	}
 	/**
 	 * @param rentValue the rentValue to set
 	 */
-	public void setRentValue(RentValue rentValue) {
+	public void setRentValue(RentType rentValue) {
 		this.rentValue = rentValue;
 	}
 	public CarCategory() {
