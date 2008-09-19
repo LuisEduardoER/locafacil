@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+   SwingML
+   Copyright (C) 2002 Ezequiel Cuellar.
+ 
+   This library is free software; you can redistribute it and/or
+   modify it under the terms of the GNU Lesser General Public
+   License as published by the Free Software Foundation; either
+   version 2 of the License, or (at your option) any later version.
+ 
+   This library is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+   Library General Public License for more details.
+  
+   You should have received a copy of the GNU Library General Public
+   License along with this library; if not, write to the
+   Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+   Boston, MA 02111-1307, USA.
+ 
+   Authors:
+       Ezequiel Cuellar <ecuellar@crosslogic.com>
+       Robert Morris <robertj@morris.net>
+-->
+
+<!DOCTYPE dialog SYSTEM "SwingML.dtd">
+<DIALOG NAME="MainPanel" MODAL="True" TEXT="Dialog Demo" WIDTH="400" HEIGHT="400" LAYOUT="BorderLayout">
+ <MENUBAR NAME="MenuBar1" ORIENTATION="North">
+  <MENU NAME="Menu1" TEXT="File" MNEMONIC="F" TOOLTIP="File Menu">
+   <MENUITEM NAME="option1" TEXT="New" MNEMONIC="N" TOOLTIP="New File" ICON="apply.png" />
+   <MENUITEM NAME="option2" TEXT="Open"/>
+   <MENUITEM NAME="option3" TEXT="Save"/>	
+   <SEPARATOR NAME="separator1"/>
+   <MENUITEM NAME="option4" TEXT="Exit" MNEMONIC="x"  TOOLTIP="Exit" ICON="exit.png"/>	  		  
+  </MENU>
+
+  <MENU NAME="Menu2" TEXT="Edit" MNEMONIC="E" TOOLTIP="Edit Menu">
+   <MENUITEM NAME="option8" TEXT="Cut"/>
+   <MENUITEM NAME="option9" TEXT="Copy"/>
+   <MENUITEM NAME="option10" TEXT="Paste"/>		  		  
+  </MENU>
+ </MENUBAR>
+ <SPLITPANE NAME="SplitTest" SIZE="5" TYPE="Vertical" LOCATION="50%" ORIENTATION="Center">
+  <PANEL NAME="SubPanel" LAYOUT="FlowLayout" BORDER="EtchedBorder">
+   <LABEL NAME="TestLabel1" TEXT="Input1" />
+
+   <TEXTFIELD NAME="TestField1" TEXT="none" COLS="5"/>
+   <PANEL NAME="SubPanel1" LAYOUT="None"/>    
+   <LABEL NAME="TestLabel2" TEXT="Input2" />
+   <TEXTFIELD NAME="TestField2" TEXT="none" COLS="5"/>
+  </PANEL>
+  <PANEL NAME="SubPanel9" LAYOUT="FlowLayout" BORDER="EtchedBorder" >
+   <LABEL NAME="TestLabel6" TEXT="Input1" />
+   <TEXTFIELD NAME="TestField7" TEXT="none" COLS="5"/>
+   <PANEL NAME="SubPanel5" LAYOUT="None"/>    
+   <LABEL NAME="TestLabel8" TEXT="Input2" />
+
+   <TEXTFIELD NAME="TestField9" TEXT="none" COLS="5"/>
+   <BUTTON NAME="ActButton" TEXT="Open" ICON="apply.png" TOOLTIP="Press to open JOptionPane demo.">
+    <LISTENER EVENT="ActionListener.actionPerformed">
+	 <ACTION COMPONENT="MainPanel" METHOD="render" TYPES="String,String" VALUES="OptionPane.xml,MainPanel" />          
+    </LISTENER>
+   </BUTTON>
+   <SLIDER NAME="aSlider" MINIMUM="0" MAXIMUM="10" VALUE="5" TYPE="Horizontal" TOOLTIP="Slider Example">
+   	<LISTENER EVENT="ChangeListener.stateChanged">
+   	 <ACTION COMPONENT="ActButton" METHOD="setEnabled" TYPES="boolean" VALUES="False" /> 
+   	</LISTENER>
+
+   </SLIDER>
+  </PANEL>
+ </SPLITPANE>
+</DIALOG>
