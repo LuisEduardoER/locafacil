@@ -1,7 +1,5 @@
 package com.locafacil.util;
 
-import java.lang.*;
-
 import com.locafacil.exceptions.InvalidStatement;
 
 public class Validator {
