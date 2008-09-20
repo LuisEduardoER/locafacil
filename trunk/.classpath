@@ -2,10 +2,5 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="R:/daniel/swingml/lib/resolver.jar"/>
-	<classpathentry kind="lib" path="R:/daniel/swingml/lib/serializer.jar"/>
-	<classpathentry kind="lib" path="R:/daniel/swingml/lib/SwingML-2-0.jar"/>
-	<classpathentry kind="lib" path="R:/daniel/swingml/lib/xercesImpl.jar"/>
-	<classpathentry kind="lib" path="R:/daniel/swingml/lib/xercesSamples.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
