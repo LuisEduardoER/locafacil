@@ -77,33 +77,39 @@ public class DataBase {
 	 * @return the resultset
 	 */
 	public ResultSet getResultset(String query) {
-		if(DataBase.connection!=null){
-			try {
-				setStatement(connection.createStatement());
-				setResultset(statement.executeQuery(query));
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			finally{
+		try {
+			if(DataBase.connection!=null && !DataBase.connection.isClosed()){
 				try {
-					statement.close();
-					resultset.close();
-					connection.close();
+					setStatement(connection.createStatement());
+					setResultset(statement.executeQuery(query));
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}			
+				}
+				finally{
+					try {
+						statement.close();
+						resultset.close();
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}			
+				}
+			} else {
+				open();
+				return getResultset(query);
 			}
-		} else {
-			open();
-			return getResultset(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return getResultset();
 	}
 	public ResultSet getResultset() {
 		return resultset;
 	}
+	
 	
 	public void executeQuery(String query) {
 		if(DataBase.connection!=null){
