@@ -16,10 +16,24 @@ public class DataBase {
 	private String userName;
 	private String password;
 	private String connectionString;
-	
+	public static DataBase db;
 	public DataBase(){
 		
 	}
+	
+	public static DataBase getDataBase(){
+		if(DataBase.db==null){
+			DataBase.db = new DataBase();
+			db.setDatabaseName("gregorio_locafacil");
+			db.setDatabaseType("mysql");
+			db.setHost("danielgregorio.com");
+			db.setPassword("loca123");
+			db.setUserName("gregorio_locafacil");	
+		}
+		
+		return db;
+	}
+	
 	public DataBase(String databaseType, String host, String databaseName, String userName, String password){
 		setDatabaseType(databaseType);
 		setHost(host);
@@ -31,10 +45,18 @@ public class DataBase {
 	public void open(){
 		// exemplo de criação de conexão;
 		// Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/BANCO_DE_DADOS?user=root&password=root");
-		String str = "jdbc:"+getDatabaseType()+"://"+getHost()+"/"+getDatabaseName()+"?user="+getUserName()+"&password="+getPassword();
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String str = "jdbc:"+getDatabaseType()+"://"+getHost()+"/"+getDatabaseName();
 		setConnectionString(str);
 		try {
-			setConnection(DriverManager.getConnection(getConnectionString()));
+			System.out.println("opening connection with connectionString = "+getConnectionString()+" user name "+ getUserName()+ " password "+getPassword());
+			setConnection(DriverManager.getConnection(getConnectionString(),getUserName(),getPassword()));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,8 +110,8 @@ public class DataBase {
 				}
 				finally{
 					try {
-						statement.close();
-						resultset.close();
+						//statement.close();
+						//resultset.close();
 						connection.close();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
