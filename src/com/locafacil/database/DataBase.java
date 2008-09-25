@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
+
+import com.locafacil.common.Address;
+import com.locafacil.common.Client;
 
 public class DataBase {
 	public static Connection connection;
@@ -224,4 +228,38 @@ public class DataBase {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	public Vector<Client> getClients(){
+		ResultSet rs = getDataBase().getResultset(" SELECT * FROM `lf_cad_cliente`");
+		return clients2Vector(rs);
+	}
+	
+	private Vector<Client> clients2Vector(ResultSet rs){
+		Vector<Client> result = new Vector<Client>();
+
+		try {
+			while(rs.next()){
+				Client cl = new Client();
+				cl.setCode(rs.getInt("in_cod_cliente"));
+				cl.setName(rs.getString("vc_nome"));
+				cl.setDocument(rs.getString("vc_cpf_cnpj"));
+				cl.setTelephone(rs.getString("vc_telefone"));
+				cl.setEmail(rs.getString("vc_email"));
+				Address add = new Address();
+				//add.setCity(rs.getString("vc_cidade"));
+				add.setLongterm(rs.getString("vc_endereco"));
+				//add.setState(rs.getString("vc_estado"));
+				//add.setPostal(rs.getString("vc_cep"));
+				cl.setAddress(add);
+				cl.setBirthday(rs.getDate("dt_data_nascimento"));
+				cl.setFinancialStatus(rs.getInt("bl_situacao"));
+				result.addElement(cl);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 }
