@@ -2,7 +2,10 @@ package com.locafacil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.Vector;
 
+import com.locafacil.common.Client;
 import com.locafacil.database.DataBase;
 
 public class Debug {
@@ -22,4 +25,14 @@ public class Debug {
 			e.printStackTrace();
 		}
 	}
+	
+	public void debugClients(){
+		Vector<Client> vt = Starter.db.getClients();
+		Iterator<Client> it = vt.iterator();
+		while(it.hasNext()){
+			Client cl = it.next();
+			System.out.println(cl.getName());
+		}
+	}
+	
 }
