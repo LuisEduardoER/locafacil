@@ -1,28 +1,21 @@
 package com.locafacil.gui;
 
 import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import org.omg.CORBA.portable.RemarshalException;
 
 public class FormSearch extends JInternalFrame implements ActionListener{
 
@@ -39,7 +32,7 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 	private JPanel panelHolder;
 	private JScrollPane panelTable;
 	public DefaultTableModel tableModel;
-	private JTable formTable;
+	public JTable formTable;
 	
 	private JButton btOpen;
 	private JButton btEdit;
