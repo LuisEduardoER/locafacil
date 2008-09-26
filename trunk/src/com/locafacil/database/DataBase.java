@@ -25,6 +25,8 @@ public class DataBase {
 		
 	}
 	
+	
+	
 	public static DataBase getDataBase(){
 		if(DataBase.db==null){
 			DataBase.db = new DataBase();

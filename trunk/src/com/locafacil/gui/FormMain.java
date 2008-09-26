@@ -4,20 +4,33 @@ import java.awt.Dimension;
 import java.awt.MenuBar;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JTextField;
+import javax.swing.JWindow;
 import javax.swing.WindowConstants;
 
-public class FormMain extends JFrame {
+import com.sun.org.apache.bcel.internal.generic.FMUL;
+
+public class FormMain extends JFrame implements ActionListener {
+	
+	public static FormSearchClient fmSearchCliente;
+	
+	public JInternalFrame actualFrame;
+	
 	public static final int WIDTH = 800;
 	public static final int HEIGHT = 600;
 	private Toolkit tool;
 	private JMenuBar barraMenu;  
 	private JMenu menuCadastro;  
 	private JMenuItem itClientes; 
+	private PanelHeader header;
 	private static final long serialVersionUID = 1L;
 
 	public FormMain(){
@@ -32,6 +45,7 @@ public class FormMain extends JFrame {
 		this.setSize(FormMain.WIDTH,FormMain.HEIGHT);
 		this.setLocation((dim.width-FormMain.WIDTH)/2, (dim.height-FormMain.HEIGHT)/2);
 		setVisible(true);
+     
 	}
 	
 	/**
@@ -74,6 +88,7 @@ public class FormMain extends JFrame {
 		if(itClientes==null){
 			setItClientes(new JMenuItem());
 			getItClientes().setText("Clientes");
+			getItClientes().addActionListener(this);
 		}
 		return itClientes;
 	}
@@ -82,6 +97,32 @@ public class FormMain extends JFrame {
 	 */
 	public void setItClientes(JMenuItem itClientes) {
 		this.itClientes = itClientes;
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
+		if(actualFrame!=null){
+			actualFrame.dispose();
+		}
+		// TODO Auto-generated method stub
+		if(arg0.getSource().equals(itClientes)){
+			actualFrame = (JInternalFrame)getFmSearchCliente();
+			this.add(getFmSearchCliente());
+			getFmSearchCliente().setVisible(true);
+		}
+	}
+
+	public static FormSearchClient getFmSearchCliente() {
+		if(fmSearchCliente==null){
+			String formTitle = "Pesquisa de Clientes";
+			String[] fields = {"Codigo","Nome", "Telefone","Cidade"};
+			String[] cols = {"Codigo","Nome", "Telefone"};
+			fmSearchCliente = new FormSearchClient(formTitle,fields,cols);
+		}
+		return fmSearchCliente;
+	}
+
+	public static void setFmSearchCliente(FormSearchClient fmSearchCliente) {
+		FormMain.fmSearchCliente = fmSearchCliente;
 	}
 
 }

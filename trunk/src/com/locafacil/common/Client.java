@@ -15,6 +15,10 @@ public class Client {
 	public static final int NO_DEBIT = 0;
 	
 	
+	public String[] getRowLine(){
+		String[] row = new String[]{getName(),Integer.toString(getCode()),getTelephone()};
+		return row;
+	}
 	
 	/**
 	 * @return the code
