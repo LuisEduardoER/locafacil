@@ -113,10 +113,7 @@ public class FormMain extends JFrame implements ActionListener {
 
 	public static FormSearchClient getFmSearchCliente() {
 		if(fmSearchCliente==null){
-			String formTitle = "Pesquisa de Clientes";
-			String[] fields = {"Codigo","Nome", "Telefone","Cidade"};
-			String[] cols = {"Codigo","Nome", "Telefone"};
-			fmSearchCliente = new FormSearchClient(formTitle,fields,cols);
+			fmSearchCliente = new FormSearchClient();
 		}
 		return fmSearchCliente;
 	}

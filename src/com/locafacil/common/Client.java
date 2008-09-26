@@ -16,7 +16,7 @@ public class Client {
 	
 	
 	public String[] getRowLine(){
-		String[] row = new String[]{getName(),Integer.toString(getCode()),getTelephone()};
+		String[] row = new String[]{Integer.toString(getCode()),getName(),getTelephone()};
 		return row;
 	}
 	
