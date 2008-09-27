@@ -21,6 +21,7 @@ import com.sun.org.apache.bcel.internal.generic.FMUL;
 public class FormMain extends JFrame implements ActionListener {
 	
 	public static FormSearchClient fmSearchCliente;
+	public static FormSearchCar fmSearchCar; // ta statico pra evitar de criar varias instancias dos mesmos formularios
 	
 	public JInternalFrame actualFrame;
 	
@@ -29,7 +30,8 @@ public class FormMain extends JFrame implements ActionListener {
 	private Toolkit tool;
 	private JMenuBar barraMenu;  
 	private JMenu menuCadastro;  
-	private JMenuItem itClientes; 
+	private JMenuItem itClientes;
+	private JMenuItem itCars;
 	private PanelHeader header;
 	private static final long serialVersionUID = 1L;
 
@@ -72,9 +74,23 @@ public class FormMain extends JFrame implements ActionListener {
 			setMenuCadastro(new JMenu());
 			getMenuCadastro().setText("Cadastro");
 			getMenuCadastro().add(getItClientes());
+			getMenuCadastro().add(getItCars());
 		}
 		return menuCadastro;
 	}
+	public JMenuItem getItCars() {
+		if(itCars==null){
+			setItCars(new JMenuItem());
+			getItCars().setText("Carros");
+			getItCars().addActionListener(this);
+		}
+		return itCars;
+	}
+
+	public void setItCars(JMenuItem itCars) {
+		this.itCars = itCars;
+	}
+
 	/**
 	 * @param menuCadastro the menuCadastro to set
 	 */
@@ -109,6 +125,11 @@ public class FormMain extends JFrame implements ActionListener {
 			this.add(getFmSearchCliente());
 			getFmSearchCliente().setVisible(true);
 		}
+		if(arg0.getSource().equals(itCars)){
+			actualFrame = (JInternalFrame)getFmSearchCliente();
+			this.add(getFmSearchCar());
+			getFmSearchCar().setVisible(true);
+		}
 	}
 
 	public static FormSearchClient getFmSearchCliente() {
@@ -120,6 +141,17 @@ public class FormMain extends JFrame implements ActionListener {
 
 	public static void setFmSearchCliente(FormSearchClient fmSearchCliente) {
 		FormMain.fmSearchCliente = fmSearchCliente;
+	}
+
+	public static FormSearchCar getFmSearchCar() {
+		if(fmSearchCar==null){
+			fmSearchCar = new FormSearchCar();
+		}
+		return fmSearchCar;
+	}
+
+	public static void setFmSearchCar(FormSearchCar fmSearchCar) {
+		FormMain.fmSearchCar = fmSearchCar;
 	}
 
 }

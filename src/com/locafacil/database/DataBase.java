@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Vector;
 
 import com.locafacil.common.Address;
+import com.locafacil.common.Car;
 import com.locafacil.common.Client;
 
 public class DataBase {
@@ -30,11 +31,16 @@ public class DataBase {
 	public static DataBase getDataBase(){
 		if(DataBase.db==null){
 			DataBase.db = new DataBase();
-			db.setDatabaseName("gregorio_locafacil");
+//			db.setDatabaseName("gregorio_locafacil");
+//			db.setDatabaseType("mysql");
+//			db.setHost("danielgregorio.com");
+//			db.setPassword("loca123");
+//			db.setUserName("gregorio_locafacil");	
+			db.setDatabaseName("locafacil");
 			db.setDatabaseType("mysql");
-			db.setHost("danielgregorio.com");
-			db.setPassword("loca123");
-			db.setUserName("gregorio_locafacil");	
+			db.setHost("localhost");
+			db.setPassword("");
+			db.setUserName("root");
 		}
 		
 		return db;
@@ -229,6 +235,28 @@ public class DataBase {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public Vector<Car> getCars(){
+		ResultSet rs = getDataBase().getResultset("SELECT * FROM `lf_cad_automoveis`");
+		return cars2Vector(rs);
+	}
+	
+	public Vector<Car> cars2Vector(ResultSet rs){
+		Vector<Car> result = new Vector<Car>();
+		try {
+			while(rs.next()){
+				Car c = new Car();
+				c.setPlaca(rs.getString("vc_placa"));
+				c.setYear(rs.getInt("in_ano"));
+				c.setChassis(rs.getString("vc_chassi"));
+				result.addElement(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public Vector<Client> getClients(){
