@@ -7,6 +7,14 @@ public class Car {
 	private String placa;
 	private String constructor;
 	private String name;
+	private String model;
+	private int year;
+	
+	public String[] getRowLine(){
+		String[] row = new String[]{getPlaca(),Integer.toString(getYear()),getChassis()};
+		return row;
+	}
+	
 	/**
 	 * @return the code
 	 */
@@ -107,7 +115,6 @@ public class Car {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	private String model;
-	private int year;
+
 	
 }
