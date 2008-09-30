@@ -19,10 +19,17 @@ public class Starter {
 	public static void main(String[] args) {
 		db = new DataBase();
 		setupLookAndFeel();
-		//FormMain fm = new FormMain();
-		FormCadastroClient fm = new FormCadastroClient();
+		FormMain fm = new FormMain();
+		//FormCadastroClient fm = new FormCadastroClient();
+		debug();
 		fm.setVisible(true);
 	}
+	
+	public static void debug(){
+		Debug debug = new Debug();
+		debug.debugRemoveClient();
+	}
+	
 	public static void setupLookAndFeel(){
 		try {
 			UIManager.setLookAndFeel( new com.nilo.plaf.nimrod.NimRODLookAndFeel());

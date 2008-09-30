@@ -146,27 +146,31 @@ public class DataBase {
 	
 	
 	public void executeQuery(String query) {
-		if(DataBase.connection!=null){
-			try {
-				setStatement(connection.createStatement());
-				getStatement().executeUpdate(query);
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			finally{
+		try {
+			if(DataBase.connection!=null && !DataBase.connection.isClosed()){
 				try {
-					getStatement().close();
-					getResultset().close();
-					connection.close();
+					setStatement(connection.createStatement());
+					getStatement().execute(query);
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-				}			
+				}
+				finally{
+					try {
+						getStatement().close();
+						connection.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}			
+				}
+			} else {
+				open();
+				getDataBase().executeQuery(query);
 			}
-		} else {
-			open();
-			executeQuery(query);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -259,9 +263,22 @@ public class DataBase {
 		return result;
 	}
 	
+	public void addClient(Client c){
+		String 	sql = "INSERT INTO `lf_cad_cliente` ( `vc_cpf_cnpj` , `vc_nome` , `vc_endereco` , `in_cod_uf` , `in_cod_cidade` , `vc_telefone` , `vc_email` , `dt_data_nascimento` , `bl_situacao` )" ;
+				sql += " VALUES ('"+c.getDocument()+"', '"+c.getName()+"', ";
+				sql +="'"+c.getAddress().getLongterm()+"', '"+c.getAddress().getState()+"', '"+c.getAddress().getCity()+"', '"+c.getTelephone()+"', ";
+				sql +="'"+c.getEmail()+"', '"+c.getBirthday().toString()+"', '"+c.getFinancialStatus()+"');";
+		getDataBase().executeQuery(sql);
+	}
+	
 	public Vector<Client> getClients(){
 		ResultSet rs = getDataBase().getResultset(" SELECT * FROM `lf_cad_cliente`");
 		return clients2Vector(rs);
+	}
+	
+	public void deleteClientByCode(int code){
+		String sql = "DELETE FROM `lf_cad_cliente` WHERE `lf_cad_cliente`.`in_cod_cliente` = "+code+" LIMIT 1";
+		getDataBase().executeQuery(sql);
 	}
 	
 	private Vector<Client> clients2Vector(ResultSet rs){
