@@ -4,41 +4,44 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JTextField;
 
-public class FormCadastroClient extends FormCadastro {
-	
+public class FormCadastroFuncionario extends FormCadastro {
+
 	private JTextField txtNome;
 	private JTextField txtEndereco;
 	private JTextField txtCidade;
-	private JTextField txtEstado;
-	private JTextField txtEmail;
-	private JTextField txtTelefone;
-	private JTextField txtDocumento;
+	private JTextField txtEstado;	
+	private JTextField txtTelefone;	
 	private JTextField txtData;
+	private JTextField txtLogin;
+	private JTextField txtSenha;
 	
 	
-//public BasicPanel panelCampos;
 	
-	
-	public FormCadastroClient(){
+	 public FormCadastroFuncionario() {
+		
+
 		panelCampos.setLayout(new GridBagLayout());
 		txtNome = new JTextField();
 		txtEndereco = new JTextField();
 		txtCidade = new JTextField();
 		txtEstado = new JTextField();
-		txtEmail = new JTextField ();
-		txtDocumento = new JTextField ();
 		txtData = new JTextField ();
 		txtTelefone = new JTextField();
+		txtLogin = new JTextField ();
+		txtSenha = new JTextField ();
 		
 		panelCampos.add("Nome",txtNome);
 		panelCampos.add("Endereço",txtEndereco);
 		panelCampos.add("Cidade", txtCidade);
-		panelCampos.add("Estado", txtEstado);
-		panelCampos.add("Email",txtEmail);
-		panelCampos.add("Telefone", txtTelefone);
-		panelCampos.add("CPF/CNPJ", txtDocumento);
+		panelCampos.add("Estado", txtEstado);		
+		panelCampos.add("Telefone", txtTelefone);		
 		panelCampos.add("Data de Nascimento",txtData);
-
+		panelCampos.add("Login", txtLogin);
+		panelCampos.add("Senha", txtSenha);
+		
+		}
 
 	}
-}
+
+	
+
