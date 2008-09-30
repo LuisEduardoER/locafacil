@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class FormSearch extends JInternalFrame implements ActionListener{
 
+	public static Vector vetor;
+	
 	private static final long serialVersionUID = 1L;
 	
 	private String formTitle;
@@ -151,16 +154,16 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 		this.cbFilterField = cbFilterField;
 	}
 
-	private void actionBtOpen(){
+	protected void actionBtOpen(){
 		
 	}
 	
-	private void actionBtEdit(){
+	protected void actionBtEdit(){
 		
 	}
 	
-	private void actionBtClose(){
-		
+	protected void actionBtClose(){
+		this.dispose();
 	}
 	
 	protected void actionBtPesquisar(){

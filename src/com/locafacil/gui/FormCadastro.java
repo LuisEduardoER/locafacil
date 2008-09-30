@@ -5,10 +5,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class FormCadastro extends JFrame implements ActionListener{
+public class FormCadastro extends JDialog implements ActionListener{
 	public PanelHeader header;
 	private JButton btConfirm;
 	private JButton btDelete;
@@ -72,7 +73,7 @@ public class FormCadastro extends JFrame implements ActionListener{
 	}
 	
 	public void handleCloseClick(){
-		
+		this.dispose();
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
