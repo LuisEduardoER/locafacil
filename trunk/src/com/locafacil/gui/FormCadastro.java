@@ -1,12 +1,14 @@
 package com.locafacil.gui;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class FormCadastro extends JFrame {
+public class FormCadastro extends JFrame implements ActionListener{
 	public PanelHeader header;
 	private JButton btConfirm;
 	private JButton btDelete;
@@ -36,9 +38,13 @@ public class FormCadastro extends JFrame {
 	private void initializeControls() {
 		header = new PanelHeader("Cadastro");
 		btClose = new JButton("Fechar");
+		btClose.addActionListener(this);
 		btConfirm = new JButton("Confirmar");
+		btConfirm.addActionListener(this);
 		btDelete = new JButton("Remover");
+		btDelete.addActionListener(this);
 		btInsert = new JButton("Adicionar Novo");
+		btInsert.addActionListener(this);
 		panelCampos = new BasicPanel();
 		panelButtons = new JPanel();
 		panelButtons.add(btClose);
@@ -51,6 +57,38 @@ public class FormCadastro extends JFrame {
 		this.setTitle("Cadastro");
 		this.setSize(550,450);
 		this.setLayout(new BorderLayout());
+	}
+
+	public void handleAddClick(){
+		
+	}
+
+	public void handleDeleteClick(){
+		
+	}
+	
+	public void handleUpdateClick(){
+		
+	}
+	
+	public void handleCloseClick(){
+		
+	}
+	
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		if(arg0.getSource().equals(this.btInsert)){
+			handleAddClick();
+		}
+		if(arg0.getSource().equals(this.btDelete)){
+			handleDeleteClick();
+		}
+		if(arg0.getSource().equals(this.btConfirm)){
+			handleUpdateClick();
+		}
+		if(arg0.getSource().equals(this.btClose)){
+			handleCloseClick();
+		}
 	}
 	
 
