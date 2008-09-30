@@ -7,6 +7,7 @@ import com.locafacil.database.DataBase;
 import com.locafacil.gui.FormCadastro;
 import com.locafacil.gui.FormCadastroCarro;
 import com.locafacil.gui.FormCadastroClient;
+import com.locafacil.gui.FormCadastroFuncionario;
 import com.locafacil.gui.FormMain;
 import com.locafacil.gui.FormSearch;
 
@@ -23,6 +24,7 @@ public class Starter {
 		FormMain fm = new FormMain();
 		//FormCadastroCarro fm = new FormCadastroCarro();
 		//FormCadastroClient fm = new FormCadastroClient();
+		//FormCadastroFuncionario fm = new FormCadastroFuncionario();
 		//debug();
 		fm.setVisible(true);
 	}
