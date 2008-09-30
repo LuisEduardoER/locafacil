@@ -5,6 +5,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import com.locafacil.database.DataBase;
 import com.locafacil.gui.FormCadastro;
+import com.locafacil.gui.FormCadastroCarro;
 import com.locafacil.gui.FormCadastroClient;
 import com.locafacil.gui.FormMain;
 import com.locafacil.gui.FormSearch;
@@ -20,8 +21,9 @@ public class Starter {
 		db = new DataBase();
 		setupLookAndFeel();
 		FormMain fm = new FormMain();
+		//FormCadastroCarro fm = new FormCadastroCarro();
 		//FormCadastroClient fm = new FormCadastroClient();
-		debug();
+		//debug();
 		fm.setVisible(true);
 	}
 	

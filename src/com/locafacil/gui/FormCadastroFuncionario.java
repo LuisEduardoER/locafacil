@@ -21,6 +21,7 @@ public class FormCadastroFuncionario extends FormCadastro {
 		
 
 		panelCampos.setLayout(new GridBagLayout());
+		
 		txtNome = new JTextField();
 		txtEndereco = new JTextField();
 		txtCidade = new JTextField();

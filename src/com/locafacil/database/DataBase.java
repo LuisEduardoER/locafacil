@@ -38,7 +38,7 @@ public class DataBase {
 //			db.setUserName("gregorio_locafacil");	
 			db.setDatabaseName("locafacil");
 			db.setDatabaseType("mysql");
-			db.setHost("localhost");
+			db.setHost("10.0.4.4:3306");
 			db.setPassword("");
 			db.setUserName("root");
 		}
