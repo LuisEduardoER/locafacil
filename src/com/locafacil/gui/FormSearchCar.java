@@ -9,8 +9,8 @@ import com.locafacil.common.Client;
 
 public class FormSearchCar extends FormSearch {
 	static String formTitle = "Pesquisa de Carros";
-	static String[] fields = {"Placa ", "Chassis", "Ano"}; // do combobox
-	static String[] cols = {"Placa","Ano", "Chassis"}; // da tabela
+	static String[] fields = {"Placa ", "Chassis", "Ano", "Modelo"}; // do combobox
+	static String[] cols = {"Placa","Ano", "Chassis", " Modelo"}; // da tabela
 	
 	public FormSearchCar(){
 		super(formTitle,fields,cols);
