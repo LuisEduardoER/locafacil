@@ -2,8 +2,10 @@ package com.locafacil.gui;
 
 import java.awt.GridBagLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import com.locafacil.Starter;
 import com.locafacil.common.Client;
 
 public class FormCadastroClient extends FormCadastro {
@@ -17,10 +19,50 @@ public class FormCadastroClient extends FormCadastro {
 	private JTextField txtDocumento;
 	private JTextField txtData;
 	
+	private Client c;
+	
 	
 //public BasicPanel panelCampos;
+
+	public void handleAddClick(){
+		Starter.db.addClient(c);
+	}
+	
+	private void updateGrid(){
+		
+	}
+	
+	private Client generate(){
+		Client c = new Client();
+		c.setName(getTxtNome().getText());
+		return c;
+	}
+	
+	public void handleDeleteClick(){
+		
+		if(JOptionPane.showConfirmDialog(this,"Tem Certeza", "Aplicação", 
+		JOptionPane.OK_CANCEL_OPTION, 
+		JOptionPane.QUESTION_MESSAGE)==JOptionPane.OK_OPTION){
+			com.locafacil.Starter.db.deleteClientByCode(c.getCode());
+			resetAllFields();
+			JOptionPane.showMessageDialog(null,"Cliente Apagado");
+		}
+		
+	}
+	
+	private void resetAllFields(){
+		getTxtNome().setText("");
+		getTxtEndereco().setText("");
+		getTxtCidade().setText("");
+		getTxtEstado().setText("");
+		getTxtEmail().setText("");
+		getTxtDocumento().setText("");
+		getTxtData().setText("");
+		getTxtTelefone().setText("");
+	}
 	
 	public void setClient(Client c){
+		this.c = c;
 		getTxtNome().setText(c.getName());
 		getTxtEndereco().setText(c.getAddress().getLongterm());
 		getTxtCidade().setText(c.getAddress().getCity());

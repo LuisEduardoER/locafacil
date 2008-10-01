@@ -17,16 +17,17 @@ public class FormSearchClient extends FormSearch {
 	
 	public FormSearchClient(){
 		super(formTitle,fields,cols);
-		
+		actionBtPesquisar();
 		
 	}
 	
 	protected void actionBtEdit(){
-		System.out.println(formTable.getSelectedRow());
+		System.out.println("selectedRow ->"+formTable.getSelectedRow());
 		Client c = (Client)FormSearch.vetor.elementAt(formTable.getSelectedRow());
 		System.out.println(c.getName());
 		getFm().setClient(c);
 		getFm().setVisible(true);
+		actionBtPesquisar();
 	}
 	
 	protected void actionBtPesquisar(){
