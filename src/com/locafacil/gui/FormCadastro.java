@@ -17,6 +17,12 @@ public class FormCadastro extends JDialog implements ActionListener{
 	private JButton btClose;
 	private JPanel panelButtons;
 	
+	public static int INSERIR_NOVO = 0;
+	public static int EDITAR = 1;
+	
+	public int estado = INSERIR_NOVO;
+	
+	
 	public BasicPanel panelCampos;
 	
 	public FormCadastro(){
@@ -44,14 +50,14 @@ public class FormCadastro extends JDialog implements ActionListener{
 		btConfirm.addActionListener(this);
 		btDelete = new JButton("Remover");
 		btDelete.addActionListener(this);
-		btInsert = new JButton("Adicionar Novo");
-		btInsert.addActionListener(this);
+		//btInsert = new JButton("Adicionar Novo");
+		//btInsert.addActionListener(this);
 		panelCampos = new BasicPanel();
 		panelButtons = new JPanel();
 		panelButtons.add(btClose);
 		panelButtons.add(btConfirm);
-		panelButtons.add(btDelete);
-		panelButtons.add(btInsert);
+		//panelButtons.add(btDelete);
+		//panelButtons.add(btInsert);
 	}
 
 	private void initializeForm(){
@@ -69,7 +75,7 @@ public class FormCadastro extends JDialog implements ActionListener{
 	}
 	
 	public void handleUpdateClick(){
-		
+
 	}
 	
 	public void handleCloseClick(){
