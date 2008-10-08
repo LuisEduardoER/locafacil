@@ -87,6 +87,18 @@ public class FormCadastroCarro extends FormCadastro {
 		getTxtAno().setText(Integer.toString(ca.getYear()));
 	}
 	
+	public void resetAllFields(){
+		
+		getTxtCategoria().setText("");
+		getTxtChassis().setText("");
+		getTxtPlaca().setText("");
+		getTxtConstrutor().setText("");
+		getTxtNome().setText("");
+		getTxtModelo().setText("");
+		getTxtAno().setText("");
+			
+	}
+	
 }
 
 
