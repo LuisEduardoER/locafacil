@@ -10,7 +10,7 @@ import java.util.Vector;
 import com.locafacil.common.Address;
 import com.locafacil.common.Car;
 import com.locafacil.common.Client;
-//import com.locafacil.common.FieldType;
+import com.locafacil.common.FieldType;
 
 public class DataBase {
 	public static Connection connection;
@@ -242,27 +242,19 @@ public class DataBase {
 		this.password = password;
 	}
 	
-	public Vector<Car> getCars(){
-		ResultSet rs = getDataBase().getResultset("SELECT * FROM `lf_cad_automoveis`");
-		return cars2Vector(rs);
-	}
-	
-	public Vector<Car> cars2Vector(ResultSet rs){
-		Vector<Car> result = new Vector<Car>();
-		try {
-			while(rs.next()){
-				Car c = new Car();
-				c.setPlaca(rs.getString("vc_placa"));
-				c.setYear(rs.getInt("in_ano"));
-				c.setChassis(rs.getString("vc_chassi"));
-				result.addElement(c);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public String prepareField(int tipo, String value){
+		String result = value;
+		if(tipo!=FieldType.INT){
+			
+		} else {
+			result = "'"+result+"'";
 		}
 		return result;
 	}
+	
+	
+	
+	
 	/*==========================================================================*/
 	/*							 CLIENTE - ATUALIZAR						    */
 	/*==========================================================================*/
@@ -316,16 +308,71 @@ public class DataBase {
 		getDataBase().executeQuery(sql);
 	}
 	
-	public String prepareField(int tipo, String value){
-		String result = value;
-		if(tipo!=FieldType.INT){
-			
-		} else {
-			result = "'"+result+"'";
+	
+
+	
+	/*==========================================================================*/
+	/*							 CARROS - ATUALIZAR						        */
+	/*==========================================================================*/
+	public void updateCars(Car carAntigo, Car carNovo){
+		 String sql = "UPDATE `lf_cad_automoveis` ";
+				sql += "SET `in_cod_cat_automovel` = '"+carNovo.getCategory()+"',";
+				sql += "`in_cod_fabrincante` = '"+carNovo.getConstructor()+"',";
+				sql += "`in_cod_modelo` = '"+carNovo.getModel()+"',";
+				sql += "`in_ano` = '"+carNovo.getYear()+"',";
+				sql += "`vc_placa` = '"+carNovo.getPlaca()+"',";
+				sql += "`vc_chassi` = '"+carNovo.getChassis()+"'";
+				sql += "WHERE `lf_cad_automoveis`.`in_cod_automovel` = '"+Integer.toString(carAntigo.getCode())+"' LIMIT 1 ";
+				getDataBase().executeQuery(sql);
+				System.out.println(sql);
+
+	}
+	/*==========================================================================*/
+	/*							 CARROS - INSERIR						    */
+	/*==========================================================================*/
+	public void addCar(Car ca){
+		String sql = "INSERT INTO `lf_cad_automoveis`(`in_cod_cat_automovel`,`in_cod_fabrincante`,`in_cod_modelo`,`in_ano`,`vc_placa`,`vc_chassi`) ";
+			   sql += "VALUES('"+ca.getCategory()+"','"+ca.getConstructor()+"','"+ca.getModel()+"','"+ca.getYear()+"','"+ca.getPlaca()+"','"+ca.getChassis()+"')";
+		getDataBase().executeQuery(sql);
+	}
+	/*==========================================================================*/
+	/*							 CARROS - BUSCAR							    */
+	/*==========================================================================*/
+	public Vector<Car> getCars(){
+		ResultSet rs = getDataBase().getResultset("SELECT * FROM `lf_cad_automoveis`");
+		return cars2Vector(rs);
+	}
+	/*==========================================================================*/
+	/*							 CARROS - BUSCAR POR CAMPO					    */
+	/*==========================================================================*/
+	public Vector<Car> cars2Vector(ResultSet rs){
+		Vector<Car> result = new Vector<Car>();
+		try {
+			while(rs.next()){
+				Car c = new Car();
+				c.setPlaca(rs.getString("vc_placa"));
+				c.setYear(rs.getInt("in_ano"));
+				c.setChassis(rs.getString("vc_chassi"));
+				result.addElement(c);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}
-		
+	/*==========================================================================*/
+	/*							 CARROS - EXCLUIR							    */
+	/*==========================================================================*/
+	public void deleteCarByCode(int code){
+		String sql = "DELETE FROM `lf_cad_automoveis` WHERE `lf_cad_automoveis`.`in_cod_automovel` = "+code+" LIMIT 1";
+		getDataBase().executeQuery(sql);
+	}
+
+	
+	
+	
+	
 	private Vector<Client> clients2Vector(ResultSet rs){
 		Vector<Client> result = new Vector<Client>();
 
