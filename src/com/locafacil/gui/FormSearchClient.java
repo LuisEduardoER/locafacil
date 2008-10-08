@@ -33,7 +33,6 @@ public class FormSearchClient extends FormSearch {
 		try {
 			if (getLinhaSelecionada() != -1){
 				Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
-				///System.out.println(c.getName());
 				getFm().setClient(c);
 				getFm().setVisible(true);
 				actionBtPesquisar();	
