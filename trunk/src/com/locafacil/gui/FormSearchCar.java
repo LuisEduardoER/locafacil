@@ -40,7 +40,7 @@ public class FormSearchCar extends FormSearch {
 		return fm;
 	}
 	
-	/*MÉTODO QUE VERIFICAR SE FOI SELECIONADO ALGUM CLIENTE*/
+	/*MÉTODO QUE VERIFICAR SE FOI SELECIONADO ALGUM CARROS*/
 	public int getLinhaSelecionada(){
 		int result;
 		result = (formTable.getSelectedRow() != -1) ? formTable.getSelectedRow() : -1;
@@ -56,7 +56,6 @@ public class FormSearchCar extends FormSearch {
 				getFm().setCar(ca);
 				getFm().setVisible(true);
 				actionBtPesquisar();	
-				
 			}else{
 				JOptionPane.showMessageDialog(null, "Selecione um carro !");
 			}
@@ -68,14 +67,14 @@ public class FormSearchCar extends FormSearch {
 		}
 	}
 	
-	/*AÇÃO DO BOTÃO NOVO NA TELA DE BUSCAR CLIENTES*/
+	/*AÇÃO DO BOTÃO NOVO NA TELA DE PESQUISAR CARROS*/
 	protected void actionBtOpen(){
 		getFm().estado = FormCadastro.INSERIR_NOVO;
 		getFm().resetAllFields();
 		getFm().setVisible(true);
 	}
 	
-	/*AÇÃO DO BOTÃO DELETAR NA TELA DE PESQUISAR CLIENTES*/
+	/*AÇÃO DO BOTÃO DELETAR NA TELA DE PESQUISAR CARROS*/
 	protected void actionBtDelete(){
 		if (getLinhaSelecionada() != -1){
 		Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
