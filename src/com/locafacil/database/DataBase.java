@@ -10,7 +10,7 @@ import java.util.Vector;
 import com.locafacil.common.Address;
 import com.locafacil.common.Car;
 import com.locafacil.common.Client;
-import com.locafacil.common.FieldType;
+//import com.locafacil.common.FieldType;
 
 public class DataBase {
 	public static Connection connection;
@@ -37,7 +37,7 @@ public class DataBase {
 //			db.setHost("danielgregorio.com");
 //			db.setPassword("loca123");
 //			db.setUserName("gregorio_locafacil");	
-			db.setDatabaseName("locafacil");
+			db.setDatabaseName("gregorio_locafacil");
 			db.setDatabaseType("mysql");
 			db.setHost("localhost");
 			db.setPassword("");
@@ -263,7 +263,9 @@ public class DataBase {
 		}
 		return result;
 	}
-	
+	/*==========================================================================*/
+	/*							 CLIENTE - ATUALIZAR						    */
+	/*==========================================================================*/
 	public void updateClient(Client cAntigo, Client cNovo){
 		 String sql = "UPDATE `lf_cad_cliente` ";
 				sql += "SET `vc_cpf_cnpj` = '"+cNovo.getDocument()+"',";
@@ -279,7 +281,9 @@ public class DataBase {
 				System.out.println(sql);
 
 	}
-	
+	/*==========================================================================*/
+	/*							 CLIENTE - INSERIR 							    */
+	/*==========================================================================*/
 	public void addClient(Client c){
 		String 	sql = "INSERT INTO `lf_cad_cliente` ( `vc_cpf_cnpj` , `vc_nome` , `vc_endereco` , `in_cod_uf` , `in_cod_cidade` , `vc_telefone` , `vc_email` , `dt_data_nascimento` , `bl_situacao` )" ;
 				sql += " VALUES ('"+c.getDocument()+"', '"+c.getName()+"', ";
@@ -287,18 +291,29 @@ public class DataBase {
 				sql +="'"+c.getEmail()+"', '"+c.getBirthday().toString()+"', '"+c.getFinancialStatus()+"');";
 		getDataBase().executeQuery(sql);
 	}
-	
+	/*==========================================================================*/
+	/*							 CLIENTE - BUSCAR TODOS						    */
+	/*==========================================================================*/
 	public Vector<Client> getClients(){
 		ResultSet rs = getDataBase().getResultset(" SELECT * FROM `lf_cad_cliente`");
 		return clients2Vector(rs);
 	}
-	
+	/*==========================================================================*/
+	/*							 CLIENTE - BUSCAR POR CAMPO					    */
+	/*==========================================================================*/
 	public Vector<Client> searchClient(int tipoCampo, String campo, String valor){
 		
 		String sql = " SELECT * FROM `lf_cad_cliente`";
 		sql += " WHERE "+campo+" = '"+valor+"'";
 		ResultSet rs = getDataBase().getResultset(sql);
 		return clients2Vector(rs);
+	}
+	/*==========================================================================*/
+	/*							 CLIENTE - EXCLUIR							    */
+	/*==========================================================================*/
+	public void deleteClientByCode(int code){
+		String sql = "DELETE FROM `lf_cad_cliente` WHERE `lf_cad_cliente`.`in_cod_cliente` = "+code+" LIMIT 1";
+		getDataBase().executeQuery(sql);
 	}
 	
 	public String prepareField(int tipo, String value){
@@ -310,12 +325,7 @@ public class DataBase {
 		}
 		return result;
 	}
-	
-	public void deleteClientByCode(int code){
-		String sql = "DELETE FROM `lf_cad_cliente` WHERE `lf_cad_cliente`.`in_cod_cliente` = "+code+" LIMIT 1";
-		getDataBase().executeQuery(sql);
-	}
-	
+		
 	private Vector<Client> clients2Vector(ResultSet rs){
 		Vector<Client> result = new Vector<Client>();
 
