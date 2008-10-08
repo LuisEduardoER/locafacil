@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import com.locafacil.Starter;
 import com.locafacil.common.Client;
 import com.locafacil.common.FieldType;
+
 public class FormSearchClient extends FormSearch {
 	public static FormCadastroClient fm;
 	static String formTitle = "Pesquisa de Clientes";
@@ -29,11 +30,17 @@ public class FormSearchClient extends FormSearch {
 	protected void actionBtEdit(){
 		getFm().estado = FormCadastro.EDITAR;
 		try {
-			Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
-//		/System.out.println(c.getName());
-			getFm().setClient(c);
-			getFm().setVisible(true);
-			actionBtPesquisar();
+			if (getLinhaSelecionada() != -1){
+				Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
+				///System.out.println(c.getName());
+				getFm().setClient(c);
+				getFm().setVisible(true);
+				actionBtPesquisar();	
+				
+			}else{
+				JOptionPane.showMessageDialog(null, "Selecione um cliente !");
+			}
+			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
 			System.out.println("fudeu ");
@@ -44,7 +51,7 @@ public class FormSearchClient extends FormSearch {
 
 	public int getLinhaSelecionada(){
 		int result;
-		result = (formTable.getSelectedRow() != -1) ? formTable.getSelectedRow() : 0;
+		result = (formTable.getSelectedRow() != -1) ? formTable.getSelectedRow() : -1;
 		return result;
 	}
 	
@@ -69,6 +76,7 @@ public class FormSearchClient extends FormSearch {
 	}
 
 	protected void actionBtDelete(){
+		if (getLinhaSelecionada() != -1){
 		Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
 		if(JOptionPane.showConfirmDialog(this,"Tem Certeza", "Aplicação", 
 		JOptionPane.OK_CANCEL_OPTION, 
@@ -77,6 +85,9 @@ public class FormSearchClient extends FormSearch {
 			JOptionPane.showMessageDialog(null,"Cliente Apagado");
 		}
 		getAllClients();
+		}else{
+			JOptionPane.showMessageDialog(null, "Selecione um cliente !");
+		}
 	}
 	
 	protected void actionBtPesquisar(){
