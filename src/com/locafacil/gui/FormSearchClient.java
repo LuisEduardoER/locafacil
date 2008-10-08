@@ -27,6 +27,7 @@ public class FormSearchClient extends FormSearch {
 		
 	}
 	
+	/*AÇÃO DO BOTÃO EDITAR EM BUSCAR CLIENTES*/
 	protected void actionBtEdit(){
 		getFm().estado = FormCadastro.EDITAR;
 		try {
@@ -48,19 +49,33 @@ public class FormSearchClient extends FormSearch {
 		}
 	}
 	
-
-	public int getLinhaSelecionada(){
-		int result;
-		result = (formTable.getSelectedRow() != -1) ? formTable.getSelectedRow() : -1;
-		return result;
-	}
-	
+	/*AÇÃO DO BOTÃO NOVO NA TELA DE BUSCAR CLIENTES*/
 	protected void actionBtOpen(){
 		getFm().estado = FormCadastro.INSERIR_NOVO;
 		getFm().resetAllFields();
 		getFm().setVisible(true);
 	}
 	
+	/*AÇÃO DO BOTÃO PESQUISAR NA TELA DE PESQUISAR CLIENTES*/
+	protected void actionBtPesquisar(){
+		String campo = getCbFilterField().getModel().getSelectedItem().toString();
+		int index = getCbFilterField().getSelectedIndex();
+		int tipo = tipos[index];
+		Vector<Client> vetor = Starter.db.searchClient(tipo, getField(index), this.txFilterValue.getText());
+		Iterator<Client> it = vetor.iterator();
+		limparGrid();
+		while(it.hasNext()){
+			tableModel.addRow(it.next().getRowLine());
+		}
+	}
+	
+	/*MÉTODO QUE VERIFICAR SE FOI SELECIONADO ALGUM CLIENTE*/
+	public int getLinhaSelecionada(){
+		int result;
+		result = (formTable.getSelectedRow() != -1) ? formTable.getSelectedRow() : -1;
+		return result;
+	}
+
 	protected void getAllClients(){
 		Vector<Client> rs = Starter.db.getClients();
 		FormSearch.vetor = rs;
@@ -74,7 +89,8 @@ public class FormSearchClient extends FormSearch {
 	public String getField(int index){
 		return fieldsDef[index];
 	}
-
+	
+	/*AÇÃO DO BOTÃO DELETAR NA TELA DE PESQUISAR CLIENTES*/
 	protected void actionBtDelete(){
 		if (getLinhaSelecionada() != -1){
 		Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
@@ -90,18 +106,6 @@ public class FormSearchClient extends FormSearch {
 		}
 	}
 	
-	protected void actionBtPesquisar(){
-		String campo = getCbFilterField().getModel().getSelectedItem().toString();
-		int index = getCbFilterField().getSelectedIndex();
-		int tipo = tipos[index];
-		Vector<Client> vetor = Starter.db.searchClient(tipo, getField(index), this.txFilterValue.getText());
-		Iterator<Client> it = vetor.iterator();
-		limparGrid();
-		while(it.hasNext()){
-			tableModel.addRow(it.next().getRowLine());
-		}
-	}
-
 	public static FormCadastroClient getFm() {
 		if(fm==null){
 			fm = new FormCadastroClient();
