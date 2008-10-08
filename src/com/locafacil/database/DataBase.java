@@ -316,7 +316,7 @@ public class DataBase {
 	/*==========================================================================*/
 	public void updateCars(Car carAntigo, Car carNovo){
 		 String sql = "UPDATE `lf_cad_automoveis` ";
-				sql += "SET `in_cod_cat_automovel` = '"+carNovo.getCategory()+"',";
+				sql += "SET `in_cod_cat_automovel` = '"+carNovo.getCategory().getCategoryCode()+"',";
 				sql += "`in_cod_fabrincante` = '"+carNovo.getConstructor()+"',";
 				sql += "`in_cod_modelo` = '"+carNovo.getModel()+"',";
 				sql += "`in_ano` = '"+carNovo.getYear()+"',";
