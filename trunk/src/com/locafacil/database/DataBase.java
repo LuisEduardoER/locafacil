@@ -10,6 +10,7 @@ import java.util.Vector;
 import com.locafacil.common.Address;
 import com.locafacil.common.Car;
 import com.locafacil.common.Client;
+import com.locafacil.common.FieldType;
 
 public class DataBase {
 	public static Connection connection;
@@ -263,6 +264,22 @@ public class DataBase {
 		return result;
 	}
 	
+	public void updateClient(Client cAntigo, Client cNovo){
+		 String sql = "UPDATE `lf_cad_cliente` ";
+				sql += "SET `vc_cpf_cnpj` = '"+cNovo.getDocument()+"',";
+				sql += "`vc_nome` = '"+cNovo.getName()+"',";
+				sql += "`vc_endereco` = '"+cNovo.getAddress().getLongterm()+"',";
+				sql += "`in_cod_uf` = '"+cNovo.getAddress().getState()+"',";
+				sql += "`in_cod_cidade` = '"+cNovo.getAddress().getCity()+"',";
+				sql += "`vc_telefone` = '"+cNovo.getTelephone()+"',";
+				sql += "`vc_email` = '"+cNovo.getEmail()+"',";
+				sql += "`dt_data_nascimento` = '"+cNovo.getBirthday()+"' ";
+				sql += "WHERE `lf_cad_cliente`.`in_cod_cliente` = '"+Integer.toString(cAntigo.getCode())+"' LIMIT 1 ";
+				getDataBase().executeQuery(sql);
+				System.out.println(sql);
+
+	}
+	
 	public void addClient(Client c){
 		String 	sql = "INSERT INTO `lf_cad_cliente` ( `vc_cpf_cnpj` , `vc_nome` , `vc_endereco` , `in_cod_uf` , `in_cod_cidade` , `vc_telefone` , `vc_email` , `dt_data_nascimento` , `bl_situacao` )" ;
 				sql += " VALUES ('"+c.getDocument()+"', '"+c.getName()+"', ";
@@ -274,6 +291,24 @@ public class DataBase {
 	public Vector<Client> getClients(){
 		ResultSet rs = getDataBase().getResultset(" SELECT * FROM `lf_cad_cliente`");
 		return clients2Vector(rs);
+	}
+	
+	public Vector<Client> searchClient(int tipoCampo, String campo, String valor){
+		
+		String sql = " SELECT * FROM `lf_cad_cliente`";
+		sql += " WHERE "+campo+" = '"+valor+"'";
+		ResultSet rs = getDataBase().getResultset(sql);
+		return clients2Vector(rs);
+	}
+	
+	public String prepareField(int tipo, String value){
+		String result = value;
+		if(tipo!=FieldType.INT){
+			
+		} else {
+			result = "'"+result+"'";
+		}
+		return result;
 	}
 	
 	public void deleteClientByCode(int code){
@@ -293,12 +328,12 @@ public class DataBase {
 				cl.setTelephone(rs.getString("vc_telefone"));
 				cl.setEmail(rs.getString("vc_email"));
 				Address add = new Address();
-				//add.setCity(rs.getString("vc_cidade"));
+				add.setCity(rs.getString("in_cod_cidade"));
 				add.setLongterm(rs.getString("vc_endereco"));
-				//add.setState(rs.getString("vc_estado"));
+				add.setState(rs.getString("in_cod_uf"));
 				//add.setPostal(rs.getString("vc_cep"));
 				cl.setAddress(add);
-				cl.setBirthday(rs.getDate("dt_data_nascimento"));
+				cl.setBirthday(rs.getString("dt_data_nascimento"));
 				cl.setFinancialStatus(rs.getInt("bl_situacao"));
 				result.addElement(cl);
 			}

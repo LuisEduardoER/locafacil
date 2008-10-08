@@ -27,8 +27,9 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 	private String formTitle;
 	private String[] fields;
 	private String[] cols;
+	private int[] tipos;
 	
-	private JTextField txFilterValue;
+	public JTextField txFilterValue;
 	private JComboBox cbFilterField;
 	private BasicPanel panelControls;
 	private JPanel panelButtons;
@@ -37,17 +38,19 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 	public DefaultTableModel tableModel;
 	public JTable formTable;
 	
+	private JButton btDelete;
 	private JButton btOpen;
 	private JButton btEdit;
 	private JButton btClose;
 	private JButton btSearch;
 	
 		
-	public FormSearch(String formTitle, String[] fields, String[] cols) {
+	public FormSearch(String formTitle, String[] fields, String[] cols, int[] tipos) {
 		super();
 		this.formTitle = formTitle;
 		this.fields = fields;
 		this.cols = cols;
+		this.tipos = tipos;
 		
 		setFields(fields);
 		setTitle(formTitle);
@@ -127,6 +130,8 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 		//panelHolder.add(panelControls);
 		panelHolder.add(panelTable);
 		
+		btDelete = new JButton("Remover");
+		btDelete.addActionListener(this);
 		btOpen = new JButton("Novo");
 		btOpen.addActionListener(this);
 		btEdit = new JButton("Editar");
@@ -136,6 +141,7 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 		
 		panelButtons.add(btOpen);
 		panelButtons.add(btEdit);
+		panelButtons.add(btDelete);
 		panelButtons.add(btClose);
 		
 		this.getContentPane().add(panelControls, BorderLayout.NORTH);
@@ -170,6 +176,17 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 		System.out.println("pai chamando");
 	}
 	
+	protected void actionBtDelete(){
+		
+	}
+	
+	public void limparGrid(){
+		while(tableModel.getRowCount()>0){
+			tableModel.removeRow(0);
+		}
+		
+	}
+	
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(arg0.getSource().equals(btOpen)){
@@ -184,6 +201,9 @@ public class FormSearch extends JInternalFrame implements ActionListener{
 		
 		if(arg0.getSource().equals(btSearch)){
 			actionBtPesquisar();
+		}
+		if(arg0.getSource().equals(btDelete)){
+			actionBtDelete();
 		}
 	}
 	

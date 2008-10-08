@@ -9,7 +9,7 @@ public class Client {
 	private String telephone;
 	private String document;
 	private String email;
-	private Date birthday;
+	private String birthday;
 	private int financialStatus;
 	public static final int HAS_DEBIT = 1;
 	public static final int NO_DEBIT = 0;
@@ -18,6 +18,10 @@ public class Client {
 	public String[] getRowLine(){
 		String[] row = new String[]{Integer.toString(getCode()),getName(),getTelephone()};
 		return row;
+	}
+	
+	public String toString(){
+		return getName() + " | "+ getCode() + " | "+ getDocument() + " | "+ getEmail() + " | "+getFinancialStatus() + " | "+ getAddress().getCity() + " | "+ getAddress().getLongterm() + " | "+ getAddress().getState();
 	}
 	
 	/**
@@ -104,13 +108,13 @@ public class Client {
 	/**
 	 * @return the birthday
 	 */
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 	/**
 	 * @param birthday the birthday to set
 	 */
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 	/**

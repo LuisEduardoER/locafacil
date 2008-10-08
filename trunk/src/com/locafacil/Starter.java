@@ -22,8 +22,8 @@ public class Starter {
 	public static void main(String[] args) {
 		db = new DataBase();
 		setupLookAndFeel();
-		//FormMain fm = new FormMain();
-		FormCadastroAluguelCarro fm= new FormCadastroAluguelCarro();
+		FormMain fm = new FormMain();
+		//FormCadastroAluguelCarro fm= new FormCadastroAluguelCarro();
 		//FormCadastroClient fm = new FormCadastroClient();
 		//FormCadastroFuncionario fm = new FormCadastroFuncionario();
 		//debug();
