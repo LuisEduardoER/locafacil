@@ -63,10 +63,44 @@ public class FormSearchCar extends FormSearch {
 			
 		} catch (NullPointerException e) {
 			// TODO Auto-generated catch block
-			System.out.println("fudeu ");
+			System.out.println("fudeu");
 			e.printStackTrace();
 		}
 	}
+	
+	/*AÇÃO DO BOTÃO NOVO NA TELA DE BUSCAR CLIENTES*/
+	protected void actionBtOpen(){
+		getFm().estado = FormCadastro.INSERIR_NOVO;
+		getFm().resetAllFields();
+		getFm().setVisible(true);
+	}
+	
+	/*AÇÃO DO BOTÃO DELETAR NA TELA DE PESQUISAR CLIENTES*/
+	protected void actionBtDelete(){
+		if (getLinhaSelecionada() != -1){
+		Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
+		if(JOptionPane.showConfirmDialog(this,"Tem Certeza", "Aplicação", 
+		JOptionPane.OK_CANCEL_OPTION, 
+		JOptionPane.QUESTION_MESSAGE)==JOptionPane.OK_OPTION){
+			com.locafacil.Starter.db.deleteClientByCode(c.getCode());
+			JOptionPane.showMessageDialog(null,"Carro Apagado");
+		}
+		getAllClients();
+		}else{
+			JOptionPane.showMessageDialog(null, "Selecione um carro !");
+		}
+	}
+	
+	protected void getAllClients(){
+		Vector<Car> rs = Starter.db.getCars();
+		FormSearch.vetor = rs;
+		Iterator<Car> it = rs.iterator();
+		limparGrid();
+		while(it.hasNext()){
+			tableModel.addRow(it.next().getRowLine());
+		}
+	}
+	
 	
 	
 }
