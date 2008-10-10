@@ -23,7 +23,7 @@ public class Debug {
 		Client c = new Client();
 		c.setName("Daniel");
 		c.setDocument("21265478");
-		c.setBirthday(new Date());
+		c.setBirthday(new Date().toString());
 		Address ad = new Address();
 		ad.setLongterm("rua do louco, 20");
 		c.setAddress(ad);

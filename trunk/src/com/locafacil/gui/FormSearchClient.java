@@ -53,6 +53,7 @@ public class FormSearchClient extends FormSearch {
 		getFm().estado = FormCadastro.INSERIR_NOVO;
 		getFm().resetAllFields();
 		getFm().setVisible(true);
+		getAllClients();
 	}
 	
 	/*AÇÃO DO BOTÃO PESQUISAR NA TELA DE PESQUISAR CLIENTES*/

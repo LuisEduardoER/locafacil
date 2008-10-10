@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
 
+import javax.swing.DefaultComboBoxModel;
+
 import com.locafacil.common.Address;
 import com.locafacil.common.Car;
 import com.locafacil.common.Client;
 import com.locafacil.common.FieldType;
+import com.locafacil.common.Rent;
 
 public class DataBase {
 	public static Connection connection;
@@ -122,14 +125,14 @@ public class DataBase {
 					e.printStackTrace();
 				}
 				finally{
-					try {
-						//statement.close();
-						//resultset.close();
-						connection.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}			
+//					try {
+//						//statement.close();
+//						//resultset.close();
+//						//connection.close();
+//					} catch (SQLException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}			
 				}
 			} else {
 				open();
@@ -399,6 +402,96 @@ public class DataBase {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public Vector<Rent> searchAluguel(String campo, String valor){
+		
+		String sql = "select al.*, car.vc_nome as nomecarro, cli.vc_nome as nomecliente from  aluguel as al, lf_cad_cliente as cli, lf_cad_automoveis as car where  al.cod_cliente = cli.in_cod_cliente  and finalizado = 0  and car.in_cod_automovel = al.cod_carro";
+		sql += " and "+campo+" = '"+valor+"'";
+		System.out.println(sql);
+		ResultSet rs = getDataBase().getResultset(sql);
+		return rs2Rent(rs);
+	}
+	
+	public Vector<Rent> getAlugueis(){
+		ResultSet rs = getDataBase().getResultset("select al.*, car.vc_nome as nomecarro, cli.vc_nome as nomecliente from  aluguel as al, lf_cad_cliente as cli, lf_cad_automoveis as car where  al.cod_cliente = cli.in_cod_cliente  and finalizado = 0  and car.in_cod_automovel = al.cod_carro");
+		return rs2Rent(rs);
+	}
+	
+	public Vector<Rent> rs2Rent(ResultSet rs){
+		Vector<Rent> vetor = new Vector<Rent>();
+		try {
+			while(rs.next()){
+				Rent r = new Rent();
+				r.setClient(rs.getString("nomecliente"));
+				r.setCar(rs.getString("nomecarro"));
+				r.setCode(rs.getInt("codigo"));
+				r.setInitialDate(rs.getString("data_saida"));
+				r.setEndingDate(rs.getString("data_prevista"));
+				r.setFinalizado(rs.getInt("finalizado"));
+				vetor.addElement(r);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vetor;
+	}
+	
+	public Vector<String> rs2Vector(ResultSet rs, String field){
+		Vector<String> vt = new Vector<String>();
+		try {
+			while(rs.next()){
+				vt.addElement((String)rs.getString(field));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return vt;
+	}
+	
+	public String[] vector2Array(Vector<String> vt){
+		String[] array = new String[vt.size()];
+		for(int x = 0; x < vt.size(); x++){
+			array[x] = (String)vt.elementAt(x);
+		}
+		return array;
+	}
+	
+	public void addAluguel(Rent r){
+		ResultSet rsCli = getDataBase().getResultset("select in_cod_cliente from lf_cad_cliente where vc_nome ='"+r.getClient()+"' LIMIT 1");
+		ResultSet rsCar =getDataBase().getResultset("select in_cod_automovel from lf_cad_automoveis where vc_nome ='"+r.getCar()+"' LIMIT 1");
+		ResultSet rsVend = getDataBase().getResultset("select in_cod_funcionario from lf_cad_funcionario where vc_nome ='"+r.getFuncionario()+"' LIMIT 1");
+		
+		try {
+			String cod_cli = "";
+			String cod_car = "";
+			String cod_vend = "";
+			while(rsCli.next())cod_cli = rsCli.getString(1);
+			while(rsCar.next()) cod_car = rsCar.getString(1);
+			while(rsVend.next()) cod_vend = rsVend.getString(1);
+			String sql = "INSERT INTO `gregorio_locafacil`.`aluguel` (`codigo` ,`cod_funcionario` ,`cod_cliente` ,`cod_carro` ,`data_saida` ,`data_prevista` ,`obs` ,`finalizado`)VALUES (NULL , '"+cod_vend+"', '"+cod_cli+"', '"+cod_car+"', '"+r.getInitialDate()+"', '"+r.getEndingDate()+"', '"+r.getAdditionalInformation()+"', '0');";
+			System.out.println(sql);
+			getDataBase().executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+//		String sql = 
+	}
+	
+	public DefaultComboBoxModel getComboDataBySQL(String sql, String tableField){
+		ResultSet rs = getDataBase().getResultset(sql);
+		DefaultComboBoxModel model = new DefaultComboBoxModel(vector2Array(rs2Vector(rs, tableField)));
+		return model;
+	}
+	
+	public DefaultComboBoxModel getComboData(String tableName, String tableField){
+		ResultSet rs = getDataBase().getResultset("select "+tableField+" from "+tableName);
+		DefaultComboBoxModel model = new DefaultComboBoxModel(vector2Array(rs2Vector(rs, tableField)));
+		return model;
 	}
 	
 }

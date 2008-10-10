@@ -6,10 +6,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class FormCadastro extends JDialog implements ActionListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3654238847853193957L;
 	public PanelHeader header;
 	private JButton btConfirm;
 	private JButton btDelete;
@@ -34,7 +37,6 @@ public class FormCadastro extends JDialog implements ActionListener{
 	
 	
 	private void setupLayout() {
-		// TODO Auto-generated method stub
 		this.add(header,BorderLayout.NORTH);
 		this.add(panelCampos, BorderLayout.CENTER);
 		this.add(panelButtons, BorderLayout.SOUTH);
@@ -83,7 +85,6 @@ public class FormCadastro extends JDialog implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 		if(arg0.getSource().equals(this.btInsert)){
 			handleAddClick();
 		}
