@@ -31,7 +31,7 @@ public class FormCadastroClient extends FormCadastro {
 	}
 
 	public void handleUpdateClick(){
-		if(estado == INSERIR_NOVO){
+		if(estado != INSERIR_NOVO){
 			Starter.db.updateClient(c, generate());
 			handleCloseClick();
 			JOptionPane.showMessageDialog(null, "Transação realizada com sucesso!");

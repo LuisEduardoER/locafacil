@@ -20,6 +20,18 @@ import com.sun.org.apache.bcel.internal.generic.FMUL;
 
 public class FormMain extends JFrame implements ActionListener {
 	
+	public static FormAluguel fmAluguel;
+	public static FormAluguel getFmAluguel() {
+		if(fmAluguel == null){
+			fmAluguel = new FormAluguel();
+		}
+		return fmAluguel;
+	}
+
+	public static void setFmAluguel(FormAluguel fmAluguel) {
+		FormMain.fmAluguel = fmAluguel;
+	}
+
 	public static FormSearchClient fmSearchCliente;
 	public static FormSearchCar fmSearchCar; // ta statico pra evitar de criar varias instancias dos mesmos formularios
 	
@@ -32,6 +44,7 @@ public class FormMain extends JFrame implements ActionListener {
 	private JMenu menuCadastro;  
 	private JMenuItem itClientes;
 	private JMenuItem itCars;
+	private JMenuItem itAluguel;
 	private PanelHeader header;
 	private static final long serialVersionUID = 1L;
 
@@ -72,9 +85,10 @@ public class FormMain extends JFrame implements ActionListener {
 	public JMenu getMenuCadastro() {
 		if(menuCadastro==null){
 			setMenuCadastro(new JMenu());
-			getMenuCadastro().setText("Cadastro");
+			getMenuCadastro().setText("Gerenciar");
 			getMenuCadastro().add(getItClientes());
 			getMenuCadastro().add(getItCars());
+			getMenuCadastro().add(getItAluguel());
 		}
 		return menuCadastro;
 	}
@@ -100,6 +114,16 @@ public class FormMain extends JFrame implements ActionListener {
 	/**
 	 * @return the itClientes
 	 */
+	public JMenuItem getItAluguel(){
+		if(itAluguel == null){
+			itAluguel = new JMenuItem();
+			itAluguel.setText("Alugueis");
+			itAluguel.addActionListener(this);
+		}
+			
+		return itAluguel;
+	}
+	
 	public JMenuItem getItClientes() {
 		if(itClientes==null){
 			setItClientes(new JMenuItem());
@@ -117,9 +141,15 @@ public class FormMain extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		if(actualFrame!=null){
+			actualFrame.setVisible(false);
 			actualFrame.dispose();
 		}
 		// TODO Auto-generated method stub
+		if(arg0.getSource().equals(itAluguel)){
+			actualFrame = (JInternalFrame)getFmAluguel();
+			this.add(getFmAluguel());
+			getFmAluguel().setVisible(true);
+		}
 		if(arg0.getSource().equals(itClientes)){
 			actualFrame = (JInternalFrame)getFmSearchCliente();
 			this.add(getFmSearchCliente());
@@ -154,4 +184,6 @@ public class FormMain extends JFrame implements ActionListener {
 		FormMain.fmSearchCar = fmSearchCar;
 	}
 
+
+	
 }
