@@ -103,7 +103,7 @@ public class FormCadastroAluguel extends FormCadastro {
 	}
 
 	public void refresh() {
-		String sqlCarro = "select car.vc_nome from aluguel as al, lf_cad_automoveis as car where car.in_cod_automovel not in (select cod_carro from aluguel) group by vc_nome";
+		String sqlCarro = "SELECT aut.vc_nome FROM lf_cad_automoveis aut INNER JOIN aluguel al ON al.cod_carro <> aut.in_cod_automovel GROUP BY aut.vc_nome LIMIT 0 , 30";
 		
 		getCbCliente().setModel(Starter.db.getComboData("lf_cad_cliente", "vc_nome"));
 		getCbCarro().setModel(Starter.db.getComboDataBySQL(sqlCarro, "vc_nome"));
