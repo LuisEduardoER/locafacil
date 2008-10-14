@@ -28,6 +28,8 @@ public class FormCadastroClient extends FormCadastro {
 
 	public void handleAddClick(){
 		Starter.db.addClient(generate());
+		this.setVisible(false);
+		this.dispose();
 	}
 
 	public void handleUpdateClick(){
