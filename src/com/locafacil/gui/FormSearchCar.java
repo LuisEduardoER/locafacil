@@ -25,6 +25,7 @@ public class FormSearchCar extends FormSearch {
 	
 	
 	protected void actionBtPesquisar(){
+		limparGrid();
 		Vector<Car> rs = Starter.db.getCars();
 		Iterator<Car> it = rs.iterator();
 		while(it.hasNext()){
@@ -77,7 +78,7 @@ public class FormSearchCar extends FormSearch {
 	/*AÇÃO DO BOTÃO DELETAR NA TELA DE PESQUISAR CARROS*/
 	protected void actionBtDelete(){
 		if (getLinhaSelecionada() != -1){
-		Client c = (Client)FormSearch.vetor.elementAt(getLinhaSelecionada());
+		Car c = (Car)FormSearch.vetor.elementAt(getLinhaSelecionada());
 		if(JOptionPane.showConfirmDialog(this,"Tem Certeza", "Aplicação", 
 		JOptionPane.OK_CANCEL_OPTION, 
 		JOptionPane.QUESTION_MESSAGE)==JOptionPane.OK_OPTION){
